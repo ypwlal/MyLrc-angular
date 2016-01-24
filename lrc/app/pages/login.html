@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html ng-app="login">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>demo</title>
-
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="login.css">  
-  <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-  <!-- angular -->
-  <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
-
-</head>
-<body>
-  <div class="container">
-    <form class="form-signin" name="loginInfo" ng-controller="login-controller">
+<div class="container">
+    <form action="/login" method="post" class="form-signin" name="loginInfo" ng-controller="login-controller">
       <div class="form-group">
         <label for="login-input-usr">Username</label>
         <input id="login-input-usr" name="usrname" type="text" ng-model="loginUsr" placeholder="Username" class="form-control" required>
@@ -43,13 +26,5 @@
       </div>
       <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
     </form>   
-  </div>
-</body>
-  <script type="text/javascript">
-      var app = angular.module('login',[]);
-      app.controller('login-controller', function($scope){
-        $scope.loginUsr = "";
-        $scope.loginPwd = "";
-      })
-  </script>
-</html>
+</div>
+

@@ -1,0 +1,26 @@
+<div>
+	<div class="list-group">
+		<a ng-repeat="song in songlistTeam" 
+			class="list-group-item" 
+			ui-sref="main.preasure.list.detial({SongId:song.id})" 
+			href=""
+			ng-class="{active: selectedSong == song.id}"
+			ng-click="selectSongById(song.id)"
+			>{{song.name}}</a>
+	</div>
+	<ul class="pagination" ng-if="pagina_arr.length > 1">
+		<li ng-if="currentPage > 1" ng-click="clickPagination(currentPage-1)">
+			<a href="#" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li ng-repeat="page in pagina_arr" ng-class="{active: $index == currentPage-1 }" ng-click="clickPagination(page)" >
+			<a href="#">{{page}}</a>
+		</li>
+		<li ng-if="currentPage < pagina_arr.length" ng-click="clickPagination(currentPage+1)">
+			<a href="#" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</div>
