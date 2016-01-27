@@ -1,5 +1,5 @@
 <div class="container">
-    <form action="/login" method="post" class="form-signin" name="loginInfo" ng-controller="login-controller">
+    <form class="form-signin" name="loginInfo" ng-submit="login()">
       <div class="form-group">
         <label for="login-input-usr">Username</label>
         <input id="login-input-usr" name="usrname" type="text" ng-model="loginUsr" placeholder="Username" class="form-control" required>
@@ -24,7 +24,7 @@
           Remeber me.
         </label>
       </div>
-      <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+      <button type="submit" class="btn btn-lg btn-primary btn-block" >Login</button>
     </form>   
 </div>
 

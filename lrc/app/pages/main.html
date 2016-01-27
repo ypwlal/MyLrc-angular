@@ -11,11 +11,27 @@
 	    </div>
 	    <div class="navbar-collapse collapse" id="navbar">
 	        <ul class="nav navbar-nav navbar-right">
+	        	<li><a href="">{{username}}</a></li>
 	            <li><a ui-sref="main.home" href="">Home</a></li>
 	            <li><a ui-sref="main.preasure.list" href="">List</a></li>
+	            <li><a href="" ng-click="logout()">Logout</a></li>
 	        </ul>
 	    </div>
 	</div>
 </nav>
 <div ui-view="main">
+</div>
+<div ng-if="alertShow == true">
+	<div class="alert-shadow"></div>
+	<div class="alert alert-warning alert-dismissible ">
+		<p class="alert-text">
+			<strong>Warning!</strong> Are u sure?
+		</p>
+  		<div class="alert-btn-container">
+  			<div class="alert-btn">
+  				<button class="btn" type="button" ng-click="logoutSure()">Yes</button>
+  				<button class="btn" type="button" ng-click="logoutClear()">No</button>
+  			</div>
+  		</div> 
+	</div>
 </div>

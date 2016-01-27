@@ -1,6 +1,32 @@
-var myLrcControllers = angular.module('myLrcControllers',[]);
+angular.module("lrcApp")
+.controller('loginCtrl',
+	['$rootScope', '$scope', '$location', '$localStorage', 'authontication',
+		function($rootScope, $scope, $location, $localStorage, authontication){
+		    $scope.loginUsr = "";
+		    $scope.loginPwd = "";
+		    $scope.login = function(){
+		    	var data = {
+		    		username: $scope.loginUsr,
+		    		password: $scope.loginPwd
+		    	}
+		    	authontication.signin(data, function(res){
+		    		if(res.type != false){
 
-myLrcControllers.controller('listCtrl',
+		    			$localStorage.token = res.token;
+	                	$location.path('/main');//change path
+		    		}else{
+		    			alert("Incorrect name or password");
+		    			console.log('login failed');
+		    		}
+		    	}, function(){
+		    		$rootScope.error = 'Failed to signin';
+		    	});
+	    	};
+		}
+	]
+)
+
+.controller('listCtrl',
 	['$scope','getSong', function($scope, getSong){
 
 		$scope.getPagination = function(songlist, page){
@@ -33,12 +59,26 @@ myLrcControllers.controller('listCtrl',
 		$scope.selectedSong = -1;
 		$scope.songlist = getSong.songlist;	
 		$scope.pagina_arr = $scope.getPageNum(5);
-		$scope.songlistTeam = $scope.getPagination($scope.songlist,1);
-		 
+		$scope.songlistTeam = $scope.getPagination($scope.songlist,1);		 
+	}]
+)
+
+.controller('navCtrl',
+	['$scope', '$localStorage', '$location', 'getUsrInfo', 
+		function($scope, $localStorage, $location, getUsrInfo){
+			$scope.alertShow = false;
+	    	$scope.username = getUsrInfo.username;
+	    	$scope.logout = function(){
+	    		$scope.alertShow = true;
+	    	}
+	    	$scope.logoutSure = function(){
+	    		delete $localStorage.token;
+	    		$scope.alertShow = false;
+	    		$location.path("/");
+	    	}
+	    	$scope.logoutClear = function(){
+	    		$scope.alertShow = false;
+	    	}	
+
 	}]
 );
-
-myLrcControllers.controller('loginCtrl',function($scope){
-    $scope.loginUsr = "";
-    $scope.loginPwd = "";
-});

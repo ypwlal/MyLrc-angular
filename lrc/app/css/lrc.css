@@ -11,3 +11,40 @@ body{
 .list-container {
 	margin: 100px auto;
 }
+.pagination {
+	margin: 0 auto;
+}
+a.song-list-item{
+	color:black;
+}
+li.active a {
+	color:white;
+}
+.alert {
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	z-index: 9999;
+}
+.alert .alert-text{
+	margin: 0 auto;
+	width: 200px;
+	text-align: center;
+}
+.alert-btn-container{
+	width: 200px;
+	margin: 0 auto;
+}
+.alert-btn-container .alert-btn{
+	width: 100px;
+	margin: 10px auto;
+}
+.alert-shadow{
+	position: absolute;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+	opacity:0.3;
+}

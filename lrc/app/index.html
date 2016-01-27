@@ -1,23 +1,27 @@
 <!DOCTYPE HTML>
-<html ng-app="lrcApp">
+<html ng-app="lrcApp" >
 	<head>
 		<title>Lrc</title>
 		<!-- bootstrap -->
   		<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
   		<link rel="stylesheet" type="text/css" href="css/lrc.css">
-		<link rel="stylesheet" type="text/css" href="css/login.css">  
+		  <link rel="stylesheet" type="text/css" href="css/login.css">  
   		<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
   		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-  		<!-- angular -->
-  		<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
-  		<script src="lib/angular-ui-router-0.2.15.js"></script>
-  		<script src="js/app.js"></script>
-  		<script src="js/controller.js"></script>
   		<base href="/">
 	</head>
 	<body>	
    	 	<div ui-view class="wrap">
    	 	</div>
+      <!-- angular -->
+      <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+      <script src="lib/angular-ui-router-0.2.15.js"></script>
+      <script src="lib/ngStorage.js"></script>
+      <script src="js/app.js"></script>
+      <script src="js/services.js"></script>
+      <script src="js/controller.js"></script>
+
 	</body>
+
 </html>

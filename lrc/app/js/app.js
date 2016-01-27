@@ -1,105 +1,122 @@
-var app = angular.module('lrcApp', ['ui.router', 'myLrcControllers']);
+var app = angular.module('lrcApp', ['ui.router', 'ngStorage']);
 
-app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-	$urlRouterProvider.when("/", "/login");
-	$urlRouterProvider.when("/main", "/main/home");
-	$urlRouterProvider.when("/preasure", "/main/preasure");
-	$urlRouterProvider.otherwise("/");  
+app.run(function($rootScope){ //listen stateChangeEvent, lazy loading
+	$rootScope
+        .$on('$stateChangeStart', 
+            function(event, toState, toParams, fromState, fromParams){ 
+                console.log('start');
+        });
 
-	$stateProvider
-		.state("login",{
-			url: '/login',
-			templateUrl: '../pages/login.html',
-			controller: 'loginCtrl'
-		})
-		.state("main", {
-			url: '/main',
-			abstract: true,
-			templateUrl: '../pages/main.html'	
-		})
-		.state("main.home", {
-			url: '/home',
-			views: {
-				'main': {
-					templateUrl: '../pages/home.html'
-				}
-			}
-		})
-		.state("main.preasure", {
-			url: '/preasure',
-			abstract: true,
-			views: {
-				'main': {
-					templateUrl: '../pages/preasure.html'
-				}
-			}
-		})
-		.state("main.preasure.list", {
-			url: '',
-			views: {
-				'list@main.preasure': {
-					templateUrl: '../pages/list.html',
+    $rootScope
+        .$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){ 
+                console.log('stop');
+        });
+})
+
+app.config(
+	[ '$stateProvider', '$urlRouterProvider', '$locationProvider','$httpProvider',
+		function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,apiTest ) {
+			$urlRouterProvider.when("/", "/login");
+			$urlRouterProvider.when("/main", "/main/home");
+			$urlRouterProvider.when("/preasure", "/main/preasure"); 
+
+			$stateProvider
+				.state("login",{
+					url: '/login',
+					templateUrl: '../pages/login.html',
+					controller: 'loginCtrl'
+				})
+				.state("main", {
+					url: '/main',
+					abstract: true,
+					templateUrl: '../pages/main.html',
 					resolve: {
-						getSong: function(){
-							return {
-								'songlist':[{
-									'id':1,
-									'name':"Cras justo odio"
-								},{
-									'id':2,
-									'name':"Cras justo odio"
-								},{
-									'id':3,
-									'name':"Cras justo odio"
-								},{
-									'id':4,
-									'name':"Cras justo odio"
-								},{
-									'id':5,
-									'name':"Cras justo odio"
-								},{
-									'id':6,
-									'name':"Cras justo odio"
-								},{
-									'id':7,
-									'name':"Cras justo odio"
-								},{
-									'id':8,
-									'name':"Cras justo odio"
-								}]
-							}
+						getUsrInfo:function(apiTest){
+							return apiTest.getUsrInfo();
 						}
 					},
-					controller: 'listCtrl'
-				},
-				'lrc@main.preasure': {
-					templateUrl: '../pages/panel.html',
-					controller: function($scope){
-						$scope.title = "Welcome";
-						$scope.content = "Nice to meet u.";
+					controller: 'navCtrl'	
+				})
+				.state("main.home", {
+					url: '/home',
+					views: {
+						'main': {
+							templateUrl: '../pages/home.html',
+						}
 					}
-				}
-			}
-		})
-		.state("main.preasure.list.detial", {
-			url: '/Song/:SongId',
-			views: {
-				'lrc@main.preasure': {
-					templateUrl: '../pages/panel.html',
-					resolve: {
-						getLrc: function(){
-							return {
-								'lrc': 'asdasdasda'
+				})
+				.state("main.preasure", {
+					url: '/preasure',
+					abstract: true,
+					views: {
+						'main': {
+							templateUrl: '../pages/preasure.html'
+						}
+					}
+				})
+				.state("main.preasure.list", {
+					url: '',
+					views: {
+						'list@main.preasure': {
+							templateUrl: '../pages/list.html',
+							resolve: {
+								getSong:function(apiTest){ 
+									return apiTest.getSongList(); //return data or promise function
+								}
+							},
+							controller: 'listCtrl'
+						},
+						'lrc@main.preasure': {
+							templateUrl: '../pages/panel.html',
+							controller: function($scope){
+								$scope.title = "Welcome";
+								$scope.content = "Nice to meet u.";
 							}
 						}
-					},
-					controller: function($scope, $stateParams, getLrc){
-						$scope.title = "ID:"+$stateParams.SongId;
-						$scope.content = getLrc.lrc;
 					}
-				}
-			}
-		});
-		$locationProvider.html5Mode(true);
-		/*$locationProvider.html5Mode({ enabled: true, requireBase: false });*/
-});
+				})
+				.state("main.preasure.list.detial", {
+					url: '/Song/:SongId',
+					views: {
+						'lrc@main.preasure': {
+							templateUrl: '../pages/panel.html',
+							resolve: {
+								getLrc: function(apiTest){
+									return apiTest.getLrcById();
+								}
+							},
+							controller: function($scope, $stateParams, getLrc){
+								$scope.title = "ID:"+$stateParams.SongId;
+								$scope.content = getLrc.lrc;
+							}
+						}
+					}
+				});
+				
+			$locationProvider.html5Mode(true);
+				/*$locationProvider.html5Mode({ enabled: true, requireBase: false });*/
+
+			$httpProvider.interceptors.push(['$q', '$window', '$localStorage',
+					function($q, $window, $localStorage){
+						return {
+			                'request': function (config) {
+			                    config.headers = config.headers || {};
+			                    if ($localStorage.token) {
+			                        config.headers.Authorization = 'Bearer ' + $localStorage.token;
+			                    }
+			                    return config;
+			                },
+			                'responseError': function(response) {
+			                	console.log('res error:'+response.status);
+			                    if(response.status === 401 || response.status === 403) {
+			                        $window.location.assign('/');
+			                        //$location.path('/'); angular didn't diguest
+			                    }
+			                    return $q.reject(response);
+			                }
+		           	 	};
+					}
+				]);
+}]);
+
