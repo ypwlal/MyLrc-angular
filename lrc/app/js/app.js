@@ -1,4 +1,4 @@
-var app = angular.module('lrcApp', ['ui.router', 'ngStorage']);
+var app = angular.module('lrcApp', ['ui.router', 'ngStorage', 'ngSanitize']);
 
 app.run(function($rootScope){ //listen stateChangeEvent, lazy loading
 	$rootScope
@@ -82,8 +82,8 @@ app.config(
 						'lrc@main.preasure': {
 							templateUrl: '../pages/panel.html',
 							resolve: {
-								getLrc: function(apiTest){
-									return apiTest.getLrcById();
+								getLrc: function(apiTest, $stateParams){
+									return apiTest.getLrcById($stateParams.SongId);
 								}
 							},
 							controller: function($scope, $stateParams, getLrc){
@@ -103,7 +103,7 @@ app.config(
 			                'request': function (config) {
 			                    config.headers = config.headers || {};
 			                    if ($localStorage.token) {
-			                        config.headers.Authorization = 'Bearer ' + $localStorage.token;
+			                        config.headers.Authorization = 'MJ ' + $localStorage.token;
 			                    }
 			                    return config;
 			                },

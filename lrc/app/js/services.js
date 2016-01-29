@@ -4,6 +4,9 @@ app.factory('authontication',
 					signin: function(data, success, error) {
 		                $http.post('/api/login', data).success(success).error(error);
 		            },
+		            signup: function(data, success, error){
+		            	$http.post('/api/signup', data).success(success).error(error);
+		            },
 		            logout: function(){
 		            	$http.post('/api/logout', data).success(success).error(error);
 		            }
@@ -18,8 +21,11 @@ app.factory('authontication',
 							return res.data;
 						});
 					},
-					getLrcById: function(){
-						return $http.post('/api/getLrc').then(function(res){
+					getLrcById: function(id){
+						var data = {
+							id: id
+						};
+						return $http.post('/api/getLrc',data).then(function(res){
 							return res.data;
 						})
 					},

@@ -10,9 +10,9 @@ angular.module("lrcApp")
 		    		password: $scope.loginPwd
 		    	}
 		    	authontication.signin(data, function(res){
+		    		console.log(res);
 		    		if(res.type != false){
-
-		    			$localStorage.token = res.token;
+		    			$localStorage.token = res.data;
 	                	$location.path('/main');//change path
 		    		}else{
 		    			alert("Incorrect name or password");
@@ -21,6 +21,16 @@ angular.module("lrcApp")
 		    	}, function(){
 		    		$rootScope.error = 'Failed to signin';
 		    	});
+
+		    	/*authontication.signup(data, function(res){
+		    		if(res.type != false ){
+		    			console.log(res);
+		    		}else{
+		    			console.log(res);
+		    		}
+		    	},function(){
+		    		console.log("res error");
+		    	})*/
 	    	};
 		}
 	]
@@ -54,7 +64,6 @@ angular.module("lrcApp")
 		$scope.selectSongById = function(id){
 			$scope.selectedSong = id;
 		}
-
 		$scope.currentPage = 1;
 		$scope.selectedSong = -1;
 		$scope.songlist = getSong.songlist;	
@@ -67,7 +76,7 @@ angular.module("lrcApp")
 	['$scope', '$localStorage', '$location', 'getUsrInfo', 
 		function($scope, $localStorage, $location, getUsrInfo){
 			$scope.alertShow = false;
-	    	$scope.username = getUsrInfo.username;
+	    	$scope.username = getUsrInfo.data;
 	    	$scope.logout = function(){
 	    		$scope.alertShow = true;
 	    	}
