@@ -33,6 +33,9 @@ app.factory('authontication',
 						return $http.post('/api/getUsrInfo').then(function(res){
 							return res.data;
 						})
+					},
+					deleteSongById: function(songid, success, error){
+						$http.post('/api/deleteSongById', {id: songid}).success(success).error(error);
 					}
 				}
 	}]

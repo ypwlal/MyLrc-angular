@@ -1,0 +1,149 @@
+html,body{
+	height: 100%;
+}
+.login-form,.signup-form {
+	width: 300px;
+	margin: 30px auto;
+}
+.wrapper{
+	height: 100%;
+}
+.cover-wrapper {
+	text-align: center;
+    height: 100%;
+    width: 100%;
+    display: table;
+    color: #fff;
+    background-color: #333; 
+}
+.wrapper-inner {
+	display: table-cell;
+    vertical-align: top;
+}
+.cover-container {
+	margin: 0 auto;
+}
+
+.inner {
+	padding: 30px;
+}
+
+.cover {
+	padding: 0 20px;
+}
+.masthead-brand {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.masthead-nav > li {
+	display: inline-block;
+}
+
+.masthead-nav > li + li {
+	margin-left: 20px;
+} 
+.masthead-nav > li > a{
+	padding-left: 0;
+    padding-right: 0;
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom: 2px solid transparent; /*clear bei jing tou ming*/
+}
+.masthead-nav > .active > a, 
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus{
+	color: #fff;
+    border-bottom-color: #fff;
+}
+.masthead-nav > li > a:hover, 
+.masthead-nav > li > a:focus {
+    background-color: transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+
+@media (min-width: 768px) {
+	.masthead {
+		position: fixed;
+		top: 0;
+	}
+
+	.mastfoot {
+		position: fixed;
+		bottom: 0;
+	}
+
+	.wrapper-inner {
+		vertical-align: middle;
+	}
+
+	.masthead, .mastfoot, .cover-container,.ng-enter {
+    	width: 100%;
+	}
+}
+
+@media (min-width: 768px) {
+
+	.masthead-brand {
+		float: left;
+	}
+	.masthead-nav {
+		float: right;
+	}
+}
+
+@media (min-width: 992px) {
+	.masthead, .mastfoot, .cover-container,.ng-enter {
+    	width: 700px;
+	}
+}
+
+/* Have to set height explicity on ui-view 
+to prevent collapsing during animation*/
+/*.cover{
+ height: 65px; 
+}*/
+
+/*.ui-view-container {
+  position: relative;
+}*/
+
+/*.cover.ng-enter, .cover.ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition:all 0.5s ease-in-out;
+    -moz-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+}
+
+.cover.ng-enter {
+  position: absolute;
+  opacity: 0;
+  -webkit-transform:scale3d(0.5, 0.5, 0.5);
+  -moz-transform:scale3d(0.5, 0.5, 0.5);
+  transform:scale3d(0.5, 0.5, 0.5);
+}
+
+.cover.ng-enter-active {
+  opacity: 1;
+  -webkit-transform:scale3d(1, 1, 1);
+  -moz-transform:scale3d(1, 1, 1);
+  transform:scale3d(1, 1, 1);
+}
+
+.cover.ng-leave {
+  opacity: 1; 
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);
+}
+
+.cover.ng-leave-active {
+  opacity: 0;
+  -webkit-transform:translate3d(100px, 0, 0);
+  -moz-transform:translate3d(100px, 0, 0);
+  transform:translate3d(100px, 0, 0);
+}
+*/

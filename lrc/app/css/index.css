@@ -1,0 +1,22 @@
+.navbar-fixed-top {
+	position: relative;
+}
+.empty-tips{
+	width: 80%;
+	margin: 150px auto;
+}
+@media (min-width:768px) {
+	.empty-tips {
+		width: 500px;
+    	margin: 200px auto;
+    	text-align: center;
+	}
+}
+.home-container {
+	margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.home-switch {
+	margin: 10px 0;
+}

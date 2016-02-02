@@ -1,4 +1,4 @@
-var app = angular.module('lrcApp', ['ui.router', 'ngStorage', 'ngSanitize']);
+var app = angular.module('lrcApp', ['ui.router', 'ngStorage', 'ngSanitize', 'ngAnimate']);
 
 app.run(function($rootScope){ //listen stateChangeEvent, lazy loading
 	$rootScope
@@ -17,15 +17,42 @@ app.run(function($rootScope){ //listen stateChangeEvent, lazy loading
 app.config(
 	[ '$stateProvider', '$urlRouterProvider', '$locationProvider','$httpProvider',
 		function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,apiTest ) {
-			$urlRouterProvider.when("/", "/login");
+			$urlRouterProvider.when("/", "/cover/info");
 			$urlRouterProvider.when("/main", "/main/home");
 			$urlRouterProvider.when("/preasure", "/main/preasure"); 
 
 			$stateProvider
-				.state("login",{
-					url: '/login',
-					templateUrl: '../pages/login.html',
-					controller: 'loginCtrl'
+				.state("cover",{
+					url: '/cover',
+					abstract: true,
+					templateUrl: '../pages/cover.html',
+					controller: 'coverCtrl'
+				})
+				.state("cover.info", {
+					url: '/info',
+					views: {
+						'cover': {
+							templateUrl: '../pages/cover-info.html'
+						}
+					}
+				})
+				.state("cover.signIn", {
+					url:'/signin',
+					views: {
+						'cover' : {
+							templateUrl: '../pages/cover-login.html',
+							controller: 'loginCtrl'
+						}
+					}
+				})
+				.state("cover.signUp", {
+					url:'/signup',
+					views: {
+						'cover' : {
+							templateUrl: '../pages/cover-signup.html',
+							controller: 'signupCtrl'
+						}
+					}
 				})
 				.state("main", {
 					url: '/main',
@@ -43,6 +70,20 @@ app.config(
 					views: {
 						'main': {
 							templateUrl: '../pages/home.html',
+							resolve: {
+								getSong:function(apiTest){ 
+									return apiTest.getSongList(); //return data or promise function
+								}
+							},
+							controller: 'homeCtrl'
+						}
+					}
+				})
+				.state("main.empty",{
+					url: '/empty',
+					views: {
+						'main': {
+							templateUrl: '../pages/empty-tips.html'
 						}
 					}
 				})

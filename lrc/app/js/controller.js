@@ -1,4 +1,8 @@
 angular.module("lrcApp")
+.controller('coverCtrl',['$scope', function($scope){
+	$scope.currentPage = 'cover';
+}])
+
 .controller('loginCtrl',
 	['$rootScope', '$scope', '$location', '$localStorage', 'authontication',
 		function($rootScope, $scope, $location, $localStorage, authontication){
@@ -22,15 +26,41 @@ angular.module("lrcApp")
 		    		$rootScope.error = 'Failed to signin';
 		    	});
 
-		    	/*authontication.signup(data, function(res){
-		    		if(res.type != false ){
-		    			console.log(res);
+	    	};
+		}
+	]
+)
+
+.controller('signupCtrl', 
+	['$rootScope', '$scope', '$location', '$localStorage', 'authontication',
+		function($rootScope, $scope, $location, $localStorage, authontication){
+		    $scope.signupUsr = "";
+		    $scope.signupPwd = "";
+		    $scope.reSignupPwd = "";
+		    $scope.signupError = 0;
+		    $scope.signup = function(){
+		    	if( $scope.signupUsr == "" || $scope.signupPwd == "" || $scope.reSignupPwd != $scope.signupPwd ){
+		    		$scope.signupError = 1;
+		    		return
+		    	}
+		    	var data = {
+		    		username: $scope.signupUsr,
+		    		password: $scope.signupPwd
+		    	}
+		    	authontication.signup(data, function(res){
+		    		console.log(res);
+		    		if(res.type != false){
+		    			alert("sign up success");
+		    			$localStorage.token = res.data.token;
+	                	$location.path('/main');//change path
 		    		}else{
-		    			console.log(res);
+		    			alert(res.data);
+		    			console.log('signup failed');
 		    		}
-		    	},function(){
-		    		console.log("res error");
-		    	})*/
+		    	}, function(){
+		    		$rootScope.error = 'Failed to signin';
+		    	});
+
 	    	};
 		}
 	]
@@ -76,7 +106,9 @@ angular.module("lrcApp")
 	['$scope', '$localStorage', '$location', 'getUsrInfo', 
 		function($scope, $localStorage, $location, getUsrInfo){
 			$scope.alertShow = false;
-	    	$scope.username = getUsrInfo.data;
+	    	$scope.username = getUsrInfo.data.username;
+	    	$scope.list = getUsrInfo.data.list;
+	    	console.log($scope.list.length);
 	    	$scope.logout = function(){
 	    		$scope.alertShow = true;
 	    	}
@@ -90,4 +122,31 @@ angular.module("lrcApp")
 	    	}	
 
 	}]
-);
+)
+
+.controller('homeCtrl', ['$scope','$window', 'getSong','apiTest', function($scope, $window, getSong, apiTest){
+	$scope.songlist = getSong.songlist;
+	$scope.deleteAlert = false;
+	$scope.showAsThumbnail = true;
+	$scope.deleteId = -1;
+	$scope.deleteItem = function(id){
+		console.log(id);
+		$scope.deleteId = id;
+		$scope.deleteAlert = true;
+	};
+	$scope.deleteSure = function(){
+
+		apiTest.deleteSongById($scope.deleteId, function(res){
+			$scope.deleteAlert = false;
+			alert(res.data);
+			//$location.path('/main');
+			$window.location.assign('/main/home');
+		}, function(){
+			$scope.deleteAlert = false;
+		});
+
+	};
+	$scope.deleteCancle = function(){
+		$scope.deleteAlert = false;
+	};
+}]);

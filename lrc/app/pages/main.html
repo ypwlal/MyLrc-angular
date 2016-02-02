@@ -7,13 +7,14 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	        </button>
-	        <a href="#" class="navbar-brand">Project name</a>
+	        <a href="#" class="navbar-brand">MyLrc</a>
 	    </div>
 	    <div class="navbar-collapse collapse" id="navbar">
 	        <ul class="nav navbar-nav navbar-right">
 	        	<li><a href="">{{username}}</a></li>
 	            <li><a ui-sref="main.home" href="">Home</a></li>
-	            <li><a ui-sref="main.preasure.list" href="">List</a></li>
+	            <li ng-if="list.length >=1 "><a ui-sref="main.preasure.list" href="">List</a></li>
+	            <li ng-if="list.length < 1 "><a ui-sref="main.empty" href="">List</a></li>
 	            <li><a href="" ng-click="logout()">Logout</a></li>
 	        </ul>
 	    </div>
@@ -25,7 +26,7 @@
 	<div class="alert-shadow"></div>
 	<div class="alert alert-warning alert-dismissible ">
 		<p class="alert-text">
-			<strong>Warning!</strong> Are u sure?
+			<strong>Warning!  Are u sure?</strong>
 		</p>
   		<div class="alert-btn-container">
   			<div class="alert-btn">

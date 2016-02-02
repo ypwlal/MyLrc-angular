@@ -25,7 +25,7 @@ function auth(req, res, next) {
 /* GET home page. */
 router.get('/', function(req, res){
  	res.sendFile(path.join(__dirname, '../app', 'index.html'));
-}).get('/login', function(req, res){
+}).get('/cover', function(req, res){
 	res.sendFile(path.join(__dirname, '../app', 'index.html'));
 }).get('/main/*', function(req, res){
 	res.redirect("/#"+req.path);
@@ -73,7 +73,7 @@ router.get('/', function(req, res){
 			if(user){
 				res.json({
 					type: true,
-					data: user.username
+					data: user
 				});
 			}else{
 				console.log("null");
@@ -95,6 +95,7 @@ router.get('/', function(req, res){
 				var userModel = new User();//'User'
 				userModel.username = req.body.username;
 				userModel.password = req.body.password;
+				userModel.list = [];
 				userModel.save(function(err, user){
 					user.token = jwt.sign(user, 'shhhhh');
                     user.save(function(err, _user) {
@@ -106,6 +107,34 @@ router.get('/', function(req, res){
                     });
 				})
 			}
+		}
+	})
+}).post('/api/deleteSongById', auth, function(req, res){
+	User.findOne({token: req.token}, function(err, usr){
+		if(!err){
+			if(usr){
+				var _index = -1;
+				for(var l =0; l<usr.list.length;l++){
+					if(usr.list[l] == req.body.id){
+						_index = l;
+					}
+				}
+				console.log(_index);
+				console.log("list:"+usr.list);
+				var newlist = usr.list.splice(_index,1);
+				console.log("newlist:"+usr.list);
+				User.update({token: req.token},{$set:{list:usr.list}},function(err, usr){
+					res.json({
+						type: true,
+						data: 'delete success'
+					});
+				})				
+			}			
+		}else{
+			res.json({
+				type: false,
+				data: 'delete failed'
+			});
 		}
 	})
 });

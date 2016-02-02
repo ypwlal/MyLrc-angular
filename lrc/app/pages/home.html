@@ -1,8 +1,55 @@
-<div class="home-container">
+<!-- <div class="home-container">
 	<div class="home-btn">
 		<button type="button" class="btn-block btn btn-default btn-lg">New</button>
 	</div>
 	<div class="home-btn">
 		<button type="button" class="btn-block btn btn-default btn-lg">Edit</button>
+	</div>
+</div> -->
+<div class="home-container container">
+	<div class="home-switch btn-group" role="group" >
+	  <button type="button" class="btn btn-default" ng-class="{active: showAsThumbnail}" ng-click="showAsThumbnail = true">thumbnail</button>
+	  <button type="button" class="btn btn-default" ng-class="{active: !showAsThumbnail}" ng-click="showAsThumbnail = false">list</button>
+	</div>
+	<div class="row" ng-if="showAsThumbnail">
+	  <div ng-repeat="song in songlist" class="col-sm-6 col-md-3">
+		    <div class="thumbnail">
+			      <img src="..." alt="...">
+			      <div class="caption">
+				        <h3>{{song.name}}</h3>
+				        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+				        <p><a href="#" class="btn btn-primary" role="button">Delete</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+			      </div>
+		    </div>
+	  </div>
+	</div>
+	<div class="panel panel-default" ng-if="!showAsThumbnail">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading">Panel heading</div>
+	  <!-- Table -->
+	  <table class="table">
+	    <tbody>
+	    	<tr ng-repeat="song in songlist">
+	    		<td>{{song.name}}</td>
+	    		<td></td>
+	    		<td></td>
+	    		<td> <p><a href="" class="btn btn-primary" role="button" ng-click="deleteItem(song.id)">Delete</a> <a href="" class="btn btn-default" role="button">Edit</a></p></td>
+	    	</tr>
+	    </tbody>
+	  </table>
+	</div>
+</div>
+<div ng-if="deleteAlert == true">
+	<div class="alert-shadow"></div>
+	<div class="alert alert-warning alert-dismissible ">
+		<p class="alert-text">
+			<strong>Warning!  Are u sure?</strong>
+		</p>
+  		<div class="alert-btn-container">
+  			<div class="alert-btn">
+  				<button class="btn" type="button" ng-click="deleteSure()">Yes</button>
+  				<button class="btn" type="button" ng-click="deleteCancle()">No</button>
+  			</div>
+  		</div> 
 	</div>
 </div>

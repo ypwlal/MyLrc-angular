@@ -1,0 +1,46 @@
+<div class="cover-wrapper">
+	<div class="wrapper-inner">
+		<div class="cover-container">
+			<div class="masthead">
+				<div class="inner">
+					<h3 class="masthead-brand">MyLrc</h3>
+					<nav>
+						<ul class="nav masthead-nav">
+							<li ng-class="{active: currentPage == 'cover'}">
+								<a ui-sref="cover.info" 
+									href="#"
+									ng-click="currentPage = 'cover'"
+									>
+									Cover</a>
+							</li>
+							<li ng-class="{active: currentPage == 'signup'}">
+								<a ui-sref="cover.signUp" 
+									href="#"
+									ng-click="currentPage = 'signup'">
+									Sign up</a>
+							</li>
+							<li ng-class="{active: currentPage == 'signin'}">
+								<a ui-sref="cover.signIn" 
+									href="#"
+									ng-click="currentPage = 'signin'">
+									Sign in</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+			<div class="ui-view-container">
+				<div class="cover" ui-view="cover">
+				</div>
+			</div>
+			<div class="mastfoot">
+				<div class="inner">
+					<p>
+						By<a href=""> ypwlal</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
