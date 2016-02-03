@@ -1,0 +1,37 @@
+<div class="overlay-wrapper">
+	<div class="overlay-container">
+		<div class="hold-shadow"></div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Add</div>
+			<div class="panel-close btn btn-defalut" ng-click="close()">X</div>
+			 <div class="panel-body container-fluid">
+				<form class="add-form" name="addSong">
+				   	<div class="row">
+				   		<div class="col-md-4">	
+				   			<div class="form-group">
+				   					<label for="add-name">Name</label>
+				   					<input id="add-name" name="addname" type="text" placeholder="Name" class="form-control" required>
+				   					<span style="color:red" ng-show="addSong.addname.$dirty && addSong.addname.$invalid">
+							          <span ng-show="addSong.addname.$error.required">
+							            Name is required.
+							          </span>
+							        </span>
+				   			</div>
+				   			<div class="form-group">
+							    <label for="addDescr">Describe</label>
+							    <textarea class="descr-textarea form-control" rows="3" name="addDescr"></textarea>   
+							</div>
+				   		</div>
+				   		<div class="col-md-8">
+				   			<div class="form-group">
+							    <label for="addLrc">Lrc</label>
+							    <textarea class="descr-textarea form-control" rows="10" name="addLrc"></textarea>   
+							</div>
+				   		</div>
+				   	</div>
+				   	<button type="submit" class="btn btn-primary" >Done</button>
+				</form>
+			</div>		
+		</div>
+	</div>
+</div>

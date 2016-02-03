@@ -20,3 +20,44 @@
 .home-switch {
 	margin: 10px 0;
 }
+.btn-addSong{
+	margin-left: 20px;
+}
+.panel-close {
+	position: absolute;
+    top: 0;
+    right: 0;
+}
+.descr-textarea {
+	resize:none;
+}
+.hold-shadow{
+	position: fixed;
+    top: 0;
+    z-index: 9999;
+    height: 100%;
+    background-color: gray;
+	opacity:0.3;
+}
+.overlay-wrapper{
+	background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    left: 0;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+}
+
+.overlay-container {
+	position: relative;
+	width: 100%;
+	margin: 100px auto;
+}
+
+@media (min-width: 768px) {
+	.overlay-container{
+		width: 840px;
+	}
+}

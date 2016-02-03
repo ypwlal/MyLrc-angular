@@ -101,8 +101,7 @@ router.get('/', function(req, res){
                     user.save(function(err, _user) {
                         res.json({
                             type: true,
-                            data: _user,
-                            token: _user.token
+                            data: _user
                         });
                     });
 				})

@@ -79,6 +79,15 @@ app.config(
 						}
 					}
 				})
+				.state("main.home.add", {
+					url: '',
+					views: {
+						'overlay':{
+							templateUrl: '../pages/addSong.html',
+							controller: 'addCtrl'
+						}
+					}
+				})
 				.state("main.empty",{
 					url: '/empty',
 					views: {

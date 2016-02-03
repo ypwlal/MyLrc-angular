@@ -124,29 +124,43 @@ angular.module("lrcApp")
 	}]
 )
 
-.controller('homeCtrl', ['$scope','$window', 'getSong','apiTest', function($scope, $window, getSong, apiTest){
-	$scope.songlist = getSong.songlist;
-	$scope.deleteAlert = false;
-	$scope.showAsThumbnail = true;
-	$scope.deleteId = -1;
-	$scope.deleteItem = function(id){
-		console.log(id);
-		$scope.deleteId = id;
-		$scope.deleteAlert = true;
-	};
-	$scope.deleteSure = function(){
-
-		apiTest.deleteSongById($scope.deleteId, function(res){
+.controller('homeCtrl', 
+	['$scope','$window', '$state', 'getSong','apiTest', 
+		function($scope, $window, $state, getSong, apiTest){
+			$scope.songlist = getSong.songlist;
 			$scope.deleteAlert = false;
-			alert(res.data);
-			//$location.path('/main');
-			$window.location.assign('/main/home');
-		}, function(){
-			$scope.deleteAlert = false;
-		});
+			$scope.showAsThumbnail = true;
+			$scope.deleteId = -1;
+			$scope.deleteItem = function(id){
+				console.log(id);
+				$scope.deleteId = id;
+				$scope.deleteAlert = true;
+			};
+			$scope.deleteSure = function(){
 
-	};
-	$scope.deleteCancle = function(){
-		$scope.deleteAlert = false;
-	};
-}]);
+				apiTest.deleteSongById($scope.deleteId, function(res){
+					$scope.deleteAlert = false;
+					alert(res.data);
+					//$location.path('/main');
+					$window.location.assign('/main/home');
+				}, function(){
+					$scope.deleteAlert = false;
+				});
+
+			};
+			$scope.deleteCancle = function(){
+				$scope.deleteAlert = false;
+			};
+			$scope.addSong = function(){
+				$state.go('main.home.add');
+			}
+		}
+	]
+)
+
+.controller('addCtrl', ["$scope","$state", function($scope, $state){
+	$scope.close = function(){
+		$state.go('main.home');
+	}
+}])
+;
