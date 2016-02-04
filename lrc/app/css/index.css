@@ -28,6 +28,9 @@
     top: 0;
     right: 0;
 }
+.add-heading{
+	text-align: center;
+}
 .descr-textarea {
 	resize:none;
 }
@@ -60,4 +63,12 @@
 	.overlay-container{
 		width: 840px;
 	}
+}
+
+.thumbnail .caption{
+	min-height: 150px;
+}
+.thumbnail-descr {
+	height: 60px;
+	overflow: auto;
 }

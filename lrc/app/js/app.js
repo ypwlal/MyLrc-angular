@@ -19,7 +19,8 @@ app.config(
 		function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,apiTest ) {
 			$urlRouterProvider.when("/", "/cover/info");
 			$urlRouterProvider.when("/main", "/main/home");
-			$urlRouterProvider.when("/preasure", "/main/preasure"); 
+			$urlRouterProvider.when("/preasure", "/main/preasure");
+			$urlRouterProvider.when("/", "/cover/info"); 
 
 			$stateProvider
 				.state("cover",{

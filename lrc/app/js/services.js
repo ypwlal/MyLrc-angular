@@ -36,6 +36,9 @@ app.factory('authontication',
 					},
 					deleteSongById: function(songid, success, error){
 						$http.post('/api/deleteSongById', {id: songid}).success(success).error(error);
+					},
+					addSong: function(data, success, error){
+						$http.post('/api/addSong', data).success(success).error(error);
 					}
 				}
 	}]

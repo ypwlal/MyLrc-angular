@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var List = new Schema({
 	id: Number,
 	name: String,
+	descr: String,
 	lrc: String
 }); 
 

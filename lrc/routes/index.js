@@ -27,6 +27,8 @@ router.get('/', function(req, res){
  	res.sendFile(path.join(__dirname, '../app', 'index.html'));
 }).get('/cover', function(req, res){
 	res.sendFile(path.join(__dirname, '../app', 'index.html'));
+}).get('/cover/*', function(req, res){
+	res.redirect("/#"+req.path);
 }).get('/main/*', function(req, res){
 	res.redirect("/#"+req.path);
 }).post('/api/login', function(req, res){
@@ -136,6 +138,28 @@ router.get('/', function(req, res){
 			});
 		}
 	})
+}).post('/api/addSong', auth, function(req, res){
+	List.count({}, function(err, count){
+		List.collection.insert({id: count+1, name: req.body.name, descr: req.body.describe, lrc: req.body.lrc});
+		User.findOne({token: req.token}, function(err, user){
+			var list = user.list;
+			list.push(count+1);
+			User.update({token: req.token},{$set:{"list":list}},function(err,usr){
+				if(err){
+					res.json({
+						type: false,
+						data: 'add failed'
+					});
+				}else{
+					res.json({
+						type: true,
+						data: 'add success'
+					});
+				}
+				
+			});
+		})
+	});
 });
 
 module.exports = router;

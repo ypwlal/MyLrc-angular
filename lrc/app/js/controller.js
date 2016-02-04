@@ -158,9 +158,33 @@ angular.module("lrcApp")
 	]
 )
 
-.controller('addCtrl', ["$scope","$state", function($scope, $state){
-	$scope.close = function(){
-		$state.go('main.home');
-	}
-}])
-;
+.controller('addCtrl', 
+	['$scope', '$state', '$window', 'apiTest', 
+		function($scope, $state, $window, apiTest){
+			$scope.close = function(){
+				$state.go('main.home');
+			};
+
+			$scope.addSubmit = function(){
+				var lrc = $scope.addLrc.replace(/\n/g,"<br />");  
+				var descr = $scope.addDescr.replace(/\n/g,"<br />"); 
+				var data = {
+					name: $scope.addName,
+					describe: descr,
+					lrc: lrc
+				}
+				console.log()
+				apiTest.addSong(data, function(res){
+					if(res.type){
+						alert("add success");
+						$window.location.assign('/main/home');
+					}else{
+						alert("add false");
+					}				
+				}, function(){
+					alert("add false!Please retry.");
+				});
+			};
+		}
+	]
+);
