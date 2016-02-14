@@ -27,7 +27,10 @@ router.get('/', function(req, res){
  	res.sendFile(path.join(__dirname, '../app', 'index.html'));
 }).get('/cover', function(req, res){
 	res.sendFile(path.join(__dirname, '../app', 'index.html'));
+}).get('/main', function(req, res){
+	res.sendFile(path.join(__dirname, '../app', 'index.html'));
 }).get('/cover/*', function(req, res){
+	//res.sendFile(path.join(__dirname, '../app', 'index.html'));
 	res.redirect("/#"+req.path);
 }).get('/main/*', function(req, res){
 	res.redirect("/#"+req.path);

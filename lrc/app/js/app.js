@@ -20,7 +20,7 @@ app.config(
 			$urlRouterProvider.when("/", "/cover/info");
 			$urlRouterProvider.when("/main", "/main/home");
 			$urlRouterProvider.when("/preasure", "/main/preasure");
-			$urlRouterProvider.when("/", "/cover/info"); 
+			$urlRouterProvider.when("/cover", "/cover/info");
 
 			$stateProvider
 				.state("cover",{
