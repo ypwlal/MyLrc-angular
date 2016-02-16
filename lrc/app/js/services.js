@@ -39,6 +39,17 @@ app.factory('authontication',
 					},
 					addSong: function(data, success, error){
 						$http.post('/api/addSong', data).success(success).error(error);
+					},
+					getSongInfoById: function(songid){
+						var data = {
+							id: songid
+						};
+						return $http.post('/api/getSongInfoById', data).then(function(res){
+							return res.data;
+						});
+					},
+					updateSong: function(data, success, error){
+						$http.post('/api/updateSong', data).success(success).error(error);
 					}
 				}
 	}]

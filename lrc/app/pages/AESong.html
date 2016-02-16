@@ -1,0 +1,37 @@
+<div class="overlay-wrapper">
+	<div class="overlay-container">
+		<div class="hold-shadow"></div>
+		<div class="panel panel-default">
+			<div class="AE-heading panel-heading">{{title}}</div>
+			<div class="panel-close btn btn-defalut" ng-click="close()">X</div>
+			 <div class="panel-body container-fluid">
+				<form class="AE-form" name="AESong" ng-submit="AESubmit()">
+				   	<div class="row">
+				   		<div class="col-md-4">	
+				   			<div class="form-group">
+				   					<label for="AE-name">Name</label>
+				   					<input id="AE-name" name="AEname" type="text" ng-model="AEName" placeholder="Name" class="form-control" required>
+				   					<span style="color:red" ng-show="AESong.AEname.$dirty && AESong.AEname.$invalid">
+							          <span ng-show="AESong.AEname.$error.required">
+							            Name is required.
+							          </span>
+							        </span>
+				   			</div>
+				   			<div class="form-group">
+							    <label for="AEDescr">Describe</label>
+							    <textarea class="descr-textarea form-control" rows="3" name="AEDescr" ng-model="AEDescr"></textarea>   
+							</div>
+				   		</div>
+				   		<div class="col-md-8">
+				   			<div class="form-group">
+							    <label for="AELrc">Lrc</label>
+							    <textarea class="descr-textarea form-control" rows="10" name="AELrc" ng-model="AELrc"></textarea>   
+							</div>
+				   		</div>
+				   	</div>
+				   	<button type="submit" class="btn btn-primary" >Done</button>
+				</form>
+			</div>		
+		</div>
+	</div>
+</div>
