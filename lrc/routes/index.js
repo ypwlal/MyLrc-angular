@@ -27,7 +27,10 @@ router.get('/', function(req, res){
  	res.sendFile(path.join(__dirname, '../app', 'index.html'));
 }).get('/cover', function(req, res){
 	res.sendFile(path.join(__dirname, '../app', 'index.html'));
+}).get('/main', function(req, res){
+	res.sendFile(path.join(__dirname, '../app', 'index.html'));
 }).get('/cover/*', function(req, res){
+	//res.sendFile(path.join(__dirname, '../app', 'index.html'));
 	res.redirect("/#"+req.path);
 }).get('/main/*', function(req, res){
 	res.redirect("/#"+req.path);
@@ -160,6 +163,27 @@ router.get('/', function(req, res){
 			});
 		})
 	});
+}).post('/api/getSongInfoById', auth, function(req, res){
+	List.find({id: req.body.id}, function(err, list){	
+		res.json({
+			songInfo: list[0]
+		})
+	});
+}).post('/api/updateSong', auth, function(req, res){
+	console.log(req.body);
+	List.update({id: req.body.id},{$set: {'name':req.body.name, 'descr':req.body.describe, 'lrc': req.body.lrc}},function(err, list){
+		if(err){
+			res.json({
+				type: false,
+				data: 'update failed'
+			});
+		}else{
+			res.json({
+				type: true,
+				data: 'update success'
+			});
+		}
+	})
 });
 
 module.exports = router;

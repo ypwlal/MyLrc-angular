@@ -28,7 +28,7 @@
     top: 0;
     right: 0;
 }
-.add-heading{
+.AE-heading{
 	text-align: center;
 }
 .descr-textarea {
@@ -39,6 +39,15 @@
     top: 0;
     z-index: 9999;
     height: 100%;
+    background-color: gray;
+	opacity:0.3;
+}
+.alert-shadow{
+	position: fixed;
+    top: 0;
+    z-index: 9999;
+    height: 100%;
+    width: 100%;
     background-color: gray;
 	opacity:0.3;
 }

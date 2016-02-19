@@ -11,7 +11,7 @@
 			      <div class="caption">
 				        <h3>{{song.name}}</h3>
 				        <p class="thumbnail-descr" ng-bind-html="song.descr"></p>
-				        <p><a href="#" class="btn btn-primary" role="button" ng-click="deleteItem(song.id)">Delete</a> <a href="#" class="btn btn-default" role="button">Edit</a></p>
+				        <p><a href="#" class="btn btn-primary" role="button" ng-click="deleteItem(song.id)">Delete</a> <a href="#" class="btn btn-default" role="button" ng-click="editSong(song.id)">Edit</a></p>
 			      </div>
 		    </div>
 	  </div>
@@ -34,7 +34,7 @@
 </div>
 
 <div ng-if="deleteAlert == true">
-	<div class="hold-shadow"></div>
+	<div class="alert-shadow"></div>
 	<div class="alert alert-warning alert-dismissible ">
 		<p class="alert-text">
 			<strong>Warning!  Are u sure?</strong>

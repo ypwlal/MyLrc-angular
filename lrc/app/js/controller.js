@@ -153,7 +153,10 @@ angular.module("lrcApp")
 			};
 			$scope.addSong = function(){
 				$state.go('main.home.add');
-			}
+			};
+			$scope.editSong = function(id){
+				$state.go('main.home.edit',{SongId:id});
+			};
 		}
 	]
 )
@@ -161,15 +164,20 @@ angular.module("lrcApp")
 .controller('addCtrl', 
 	['$scope', '$state', '$window', 'apiTest', 
 		function($scope, $state, $window, apiTest){
+			$scope.title = "Add";
+			$scope.AEName = "";
+			$scope.AEDescr = "";
+			$scope.AELrc = "";
+
 			$scope.close = function(){
 				$state.go('main.home');
 			};
 
-			$scope.addSubmit = function(){
-				var lrc = $scope.addLrc.replace(/\n/g,"<br />");  
-				var descr = $scope.addDescr.replace(/\n/g,"<br />"); 
+			$scope.AESubmit = function(){
+				var lrc = $scope.AELrc.replace(/\n/g,"<br />");  
+				var descr = $scope.AEDescr.replace(/\n/g,"<br />"); 
 				var data = {
-					name: $scope.addName,
+					name: $scope.AEName,
 					describe: descr,
 					lrc: lrc
 				}
@@ -186,5 +194,45 @@ angular.module("lrcApp")
 				});
 			};
 		}
+	]
+)
+
+.controller('editCtrl', 
+	['$scope','$window', '$state', 'getSongInfo','getId', 'apiTest',
+		function($scope, $window, $state, getSongInfo, getId, apiTest){
+			$scope.title = "Edit";
+
+			var descr = getSongInfo.songInfo.descr.replace(/<br \/>/g,"\n");  
+			var lrc = getSongInfo.songInfo.lrc.replace(/<br \/>/g,"\n"); 
+			$scope.AEName = getSongInfo.songInfo.name;
+			$scope.AEDescr = descr;
+			$scope.AELrc = lrc;
+
+			$scope.close = function(){
+				$state.go('main.home');
+			};
+
+			$scope.AESubmit = function(){
+				var lrc = $scope.AELrc.replace(/\n/g,"<br />");  
+				var descr = $scope.AEDescr.replace(/\n/g,"<br />"); 
+				var data = {
+					id : parseInt(getId.id),
+					name: $scope.AEName,
+					describe: descr,
+					lrc: lrc
+				};
+				apiTest.updateSong(data, function(res){
+					if(res.type){
+						alert("update success");
+						$window.location.assign('/main/home');
+					}else{
+						alert("update false");
+					}				
+				}, function(){
+					alert("update false!Please retry.");
+				});
+			};
+
+		} 
 	]
 );

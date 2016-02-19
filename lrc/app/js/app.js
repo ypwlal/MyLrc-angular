@@ -20,7 +20,7 @@ app.config(
 			$urlRouterProvider.when("/", "/cover/info");
 			$urlRouterProvider.when("/main", "/main/home");
 			$urlRouterProvider.when("/preasure", "/main/preasure");
-			$urlRouterProvider.when("/", "/cover/info"); 
+			$urlRouterProvider.when("/cover", "/cover/info");
 
 			$stateProvider
 				.state("cover",{
@@ -81,11 +81,28 @@ app.config(
 					}
 				})
 				.state("main.home.add", {
-					url: '',
+					url: '/add',
 					views: {
 						'overlay':{
-							templateUrl: '../pages/addSong.html',
+							templateUrl: '../pages/AESong.html',
 							controller: 'addCtrl'
+						}
+					}
+				})
+				.state("main.home.edit", {
+					url: '/edit/:SongId',
+					views: {
+						'overlay':{
+							templateUrl: '../pages/AESong.html',
+							resolve: {
+								getSongInfo: function(apiTest, $stateParams){
+									return apiTest.getSongInfoById($stateParams.SongId);
+								},
+								getId: function($stateParams){
+									return {id: $stateParams.SongId}
+								}
+							},
+							controller: 'editCtrl'
 						}
 					}
 				})
